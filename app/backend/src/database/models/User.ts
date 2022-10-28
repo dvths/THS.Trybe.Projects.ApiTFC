@@ -34,16 +34,12 @@ User.init(
       type: STRING,
       allowNull: false,
     },
-    password_hash: {
-      type: STRING,
-      allowNull: false
-    }
   },
   {
     underscored: true,
     sequelize: db,
     modelName: 'user',
-    timestamps: true,
+    timestamps: false,
   }
 );
 
