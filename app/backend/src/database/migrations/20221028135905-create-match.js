@@ -27,7 +27,7 @@ module.exports = {
       },
       inProgress: {
         type: Sequelize.BOOLEAN,
-        fiels: 'in_progress'
+        field: 'in_progress'
       }
     })
   },
