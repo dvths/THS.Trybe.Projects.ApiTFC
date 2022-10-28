@@ -11,18 +11,23 @@ module.exports = {
       },
       homeTeam: {
         type: Sequelize.INTEGER,
+        field: 'home_team'
       },
       homeTeamGoals: {
         type: Sequelize.INTEGER,
+        field: 'home_team_goals'
       },
       awayTeam: {
         type: Sequelize.INTEGER,
+        field: 'away_team'
       },
       awayTeamGoals: {
         type: Sequelize.INTEGER,
+        field: 'away_team_goals'
       },
       inProgress: {
         type: Sequelize.BOOLEAN,
+        fiels: 'in_progress'
       }
     })
   },
