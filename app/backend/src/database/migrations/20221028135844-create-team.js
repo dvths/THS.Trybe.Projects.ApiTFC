@@ -13,16 +13,16 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
-      createdAt: {
-        type: Sequelize.DATE,
-        allowNull: false,
-        field: 'created_at'
-      },
-      updatedAt: {
-        type: Sequelize.DATE,
-        allowNull: false,
-        field: 'updated_at'
-      }
+      // createdAt: {
+      //   type: Sequelize.DATE,
+      //   allowNull: false,
+      //   field: 'created_at'
+      // },
+      // updatedAt: {
+      //   type: Sequelize.DATE,
+      //   allowNull: false,
+      //   field: 'updated_at'
+      // }
     })
 
   },
