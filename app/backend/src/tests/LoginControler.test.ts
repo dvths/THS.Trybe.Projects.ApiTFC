@@ -26,7 +26,7 @@ describe('POST /login', () => {
 
   describe('Quando o campo "password" não é informado: ', () => {
     let httpResponse: Response;
-    it('Deve retornar status 400 e a mensagem adequada.', async() => {
+    it('Deve retornar status 400 e a mensagem adequada.', async () => {
       httpResponse = await chai
         .request(app)
         .post('/login')
@@ -35,6 +35,6 @@ describe('POST /login', () => {
       expect(httpResponse.body).to.deep.equal({
         message: 'All fields must be filled',
       });
-    })
-  })
+    });
+  });
 });

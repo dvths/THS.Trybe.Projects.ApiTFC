@@ -5,7 +5,7 @@ export class LoginController {
     if(!request.body.email) return response.status(400).json({ message: 'All fields must be filled',});
     if(!request.body.password) return response.status(400).json({ message: 'All fields must be filled',});
 
-    return response.status(200);
+    return response.status(201);
   }
 
 }
