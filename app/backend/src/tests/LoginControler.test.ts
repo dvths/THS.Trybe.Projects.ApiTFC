@@ -37,4 +37,14 @@ describe('POST /login', () => {
       });
     });
   });
+  describe('Quando a requisição é feita com sucesso: ', () => {
+    let httpResponse: Response;
+    it('Deve retornar status 201', async () => {
+      httpResponse = await chai
+        .request(app)
+        .post('/login')
+        .send({ email: 'any_email@email.com', password: 'any_pass' });
+      expect(httpResponse.status).to.equal(201);
+    });
+  });
 });
