@@ -1,4 +1,4 @@
-import { Model, STRING, INTEGER} from 'sequelize';
+import { Model, STRING, INTEGER } from 'sequelize';
 import db from '.';
 import Match from './Match';
 
@@ -7,20 +7,23 @@ export default class Team extends Model {
   teamName: string;
 }
 
-Team.init({
-  id: {
-    type: INTEGER,
-    allowNull: false,
-    autoIncrement: true,
-    primaryKey: true,
+Team.init(
+  {
+    id: {
+      type: INTEGER,
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+    },
+    teamName: STRING,
   },
-  teamName: STRING,
-}, {
+  {
     underscored: true,
     sequelize: db,
     modelName: 'team',
     timestamps: false,
-});
+  },
+);
 
 Match.belongsTo(Team, { foreignKey: 'homeTeam', as: 'teamHome' });
 Match.belongsTo(Team, { foreignKey: 'awayTeam', as: 'teamAway' });
