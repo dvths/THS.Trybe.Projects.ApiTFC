@@ -1,11 +1,9 @@
 import { Router } from 'express';
+import { LoginController } from '../Controllers/LoginController';
 
 const router = Router();
+const loginController = new LoginController();
 
-router.post('/login', (req, res) => {
-  if (!req.body.email) {
-    res.status(400).json({ message: 'All fields must be filled' });
-  }
-});
+router.post('/login', loginController.create);
 
 export { router as loginRouter };
