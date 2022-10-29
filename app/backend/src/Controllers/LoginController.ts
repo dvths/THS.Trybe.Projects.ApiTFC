@@ -1,11 +1,17 @@
-import { Request, Response } from "express";
+import { Request, Response } from 'express';
+import { LoginService } from '../Service/LoginService';
 
 export class LoginController {
+  private loginService: LoginService;
+
+  constructor() {
+    this.loginService = new LoginService();
+  }
+
   public create(request: Request, response: Response): Response {
-    if(!request.body.email) return response.status(400).json({ message: 'All fields must be filled',});
-    if(!request.body.password) return response.status(400).json({ message: 'All fields must be filled',});
+    const errorMessage = this.loginService.create(request.body);
+    if (errorMessage) return response.status(400).json(errorMessage);
 
     return response.sendStatus(201);
   }
-
 }
