@@ -1,4 +1,6 @@
+import 'express-async-errors';
 import * as express from 'express';
+import { errorMiddleware } from './Middlewares/ErrorMiddleware';
 import { loginRouter } from './Routes/LoginRouter';
 
 class App {
@@ -17,6 +19,7 @@ class App {
   // Métodos privados
   private routes(): void {
     this.app.use(loginRouter);
+    this.app.use(errorMiddleware);
   }
 
   private config(): void {
