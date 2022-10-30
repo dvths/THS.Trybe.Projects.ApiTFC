@@ -2,10 +2,14 @@ interface ILogin {
   email: string
   password: string
 }
+
+type LoginRequiredData = ['email', 'password'];
+
 export class LoginService {
   public create(login: ILogin) {
-    if(!login.email) return { message: 'All fields must be filled' };
-    if(!login.password) return { message: 'All fields must be filled' };
-
+    const requiredDataForLogin: LoginRequiredData = ['email', 'password'];
+    for (const data of requiredDataForLogin) {
+      if(!login[data]) throw new Error('All fields must be filled');
+    }
   }
 }
