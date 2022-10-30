@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { LoginService } from '../Service/LoginService';
+import { LoginService } from '../Services/LoginService';
 
 export class LoginController {
   private loginService: LoginService;
@@ -9,13 +9,7 @@ export class LoginController {
   }
 
   public create(request: Request, response: Response): Response {
-    try {
       this.loginService.create(request.body);
       return response.sendStatus(201);
-      
-    } catch (error: any) {
-      return response.status(400).json({message: error.message});
-      
-    }
   }
 }
