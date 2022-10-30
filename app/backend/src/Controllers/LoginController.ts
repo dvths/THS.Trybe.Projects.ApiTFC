@@ -9,9 +9,13 @@ export class LoginController {
   }
 
   public create(request: Request, response: Response): Response {
-    const errorMessage = this.loginService.create(request.body);
-    if (errorMessage) return response.status(400).json(errorMessage);
-
-    return response.sendStatus(201);
+    try {
+      this.loginService.create(request.body);
+      return response.sendStatus(201);
+      
+    } catch (error: any) {
+      return response.status(400).json({message: error.message});
+      
+    }
   }
 }
