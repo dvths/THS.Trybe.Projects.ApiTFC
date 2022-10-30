@@ -4,5 +4,5 @@ export interface ILogin {
 }
 
 export interface ILoginService {
-  create(user: ILogin): any
+  create(user: ILogin): Promise<any>
 }
