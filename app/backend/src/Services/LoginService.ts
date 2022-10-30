@@ -1,13 +1,8 @@
+import { ILogin, ILoginService } from '../Interfaces/ILoginService';
 import { RequiredDataErrors } from '../Errors/RequiredDataErrors';
+import { LoginRequiredData } from '../Types/LoginRequiredData';
 
-interface ILogin {
-  email: string
-  password: string
-}
-
-type LoginRequiredData = ['email', 'password'];
-
-export class LoginService {
+export class LoginService implements ILoginService {
   public create(login: ILogin) {
     const requiredDataForLogin: LoginRequiredData = ['email', 'password'];
     for (const data of requiredDataForLogin) {
