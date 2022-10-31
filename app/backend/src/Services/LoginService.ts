@@ -5,7 +5,8 @@ import { RequiredDataErrors } from '../Errors/RequiredDataErrors';
 import { ConflicDatatError } from '../Errors/ConflictDataErrors';
 
 export class LoginService implements ILoginService {
-  public async create(login: ILogin): Promise<any> {
+
+  public async login(login: ILogin): Promise<any> {
     const requiredDataForLogin: LoginRequiredData = ['email', 'password'];
     for (const data of requiredDataForLogin) {
       if (!login[data])
