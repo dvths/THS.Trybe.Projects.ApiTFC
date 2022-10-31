@@ -9,7 +9,7 @@ export class LoginController {
     this.loginService = loginService;
   }
 
-  public async create(request: Request, response: Response): Promise<Response> {
+  public async login(request: Request, response: Response): Promise<Response> {
       await this.loginService.login(request.body);
       return response.sendStatus(201);
   }
