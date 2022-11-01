@@ -1,5 +1,6 @@
 import * as chai from 'chai';
 import * as sinon from 'sinon';
+// import * as jwt from 'jsonwebtoken';
 // @ts-ignore
 import chaiHttp = require('chai-http');
 import { app } from '../app';
@@ -71,6 +72,23 @@ describe('POST /login', () => {
       expect(body).to.deep.equal({
         message: 'Incorrect email or password',
       });
+    });
+  });
+
+  describe('Quando as credenciais estão corretas', () => {
+
+    before(() => {
+      sinon.stub(Model, 'findOne').resolves(mock.login.requests.user as User);
+    });
+    after(() => sinon.restore());
+
+    it('Deve retornar status 200 e um token no corpo da requisição', async () => {
+      const { status, body } = await chai
+      .request(app)
+      .post('/login')
+      .send(mock.login.data);
+      expect(status).to.equal(200);
+      expect(body).to.have.key('token');
     });
   });
 });
