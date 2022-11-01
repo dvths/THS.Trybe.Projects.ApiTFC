@@ -1,13 +1,14 @@
 import { Router } from 'express';
 import { LoginService } from '../Services/LoginService';
 import { LoginController } from '../Controllers/LoginController';
-import { validateBody } from '../Middlewares/ValidateBody';
+// import { validateBody } from '../Middlewares/ValidateBody';
+import * as loginMiddleware from '../Middlewares/LoginMiddleware';
 
-const router = Router();
 const loginService = new LoginService();
 const loginController = new LoginController(loginService);
+const router = Router();
 
-router.post('/login', validateBody(['email', 'password']), (req, res) =>
+router.post('/login', loginMiddleware.validateFields, (req, res) =>
   loginController.login(req, res)
 );
 
