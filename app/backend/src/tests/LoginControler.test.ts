@@ -3,9 +3,9 @@ import * as sinon from 'sinon';
 // @ts-ignore
 import chaiHttp = require('chai-http');
 import { app } from '../app';
-import { Response } from 'superagent';
 import { Model } from 'sequelize';
 import User from '../database/models/User';
+import * as mock from './mocks-stubs';
 
 chai.use(chaiHttp);
 
@@ -13,62 +13,64 @@ const { expect } = chai;
 
 describe('POST /login', () => {
   describe('Quando o campo "email" não é informado: ', () => {
-    let httpResponse: Response;
     it('Deve retornar status 400 e a mensagem adequada.', async () => {
-      httpResponse = await chai
+      const { status, body } = await chai
         .request(app)
         .post('/login')
-        .send({ email: '', password: 'any_pass' });
-      expect(httpResponse.status).to.equal(400);
-      expect(httpResponse.body).to.deep.equal({
+        .send(mock.login.requests.emptyEmail);
+      expect(status).to.equal(400);
+      expect(body).to.deep.equal({
         message: 'All fields must be filled',
       });
     });
   });
 
-  describe('Quando o campo "password" não é informado: ', () => {
-    let httpResponse: Response;
+  describe('Quando o campo "password" não é informado:', () => {
     it('Deve retornar status 400 e a mensagem adequada.', async () => {
-      httpResponse = await chai
+      const { status, body } = await chai
         .request(app)
         .post('/login')
-        .send({ email: 'any_email@email.com', password: '' });
-      expect(httpResponse.status).to.equal(400);
-      expect(httpResponse.body).to.deep.equal({
+        .send(mock.login.requests.emptyPassword);
+      expect(status).to.equal(400);
+      expect(body).to.deep.equal({
         message: 'All fields must be filled',
       });
     });
   });
 
-  describe('Quando o usuário já existe no banco de dados', () => {
-    let httpResponse: Response;
-
-    const user = { id: 1, email: 'any_email@email.com', password: 'any_pass' };
-
-    before(() => sinon.stub(Model, 'findOne').resolves(user as User))
+  describe('Quando o email é informado e não existe no banco:', () => {
+    before(() => sinon.stub(Model, 'findOne').resolves(null));
 
     after(() => sinon.restore());
 
-    it('Deve retornar um erro 409 e a mensagem adequada', async () => {
-      httpResponse = await chai
+    it('Deve retornar um erro 401 e a mensagem adequada', async () => {
+      const { status, body } = await chai
         .request(app)
         .post('/login')
-        .send({ email: 'exists@email.com', password: 'any_pass' });
-      expect(httpResponse.status).to.equal(409);
-      expect(httpResponse.body).to.deep.equal({
-        message: 'User already registered!',
+        .send(mock.login.requests.emailNonExist);
+      expect(status).to.equal(401);
+      expect(body).to.deep.equal({
+        message: 'Incorrect email or password',
       });
     });
   });
 
-  describe('Quando a requisição é feita com sucesso: ', () => {
-    let httpResponse: Response;
-    it('Deve retornar status 201', async () => {
-      httpResponse = await chai
+  describe('Quando o email informado existe no banco e a senha é incorreta:', () => {
+    before(() =>
+      sinon.stub(Model, 'findOne').resolves(mock.login.data as User)
+    );
+
+    after(() => sinon.restore());
+
+    it('Deve retornar um erro 401 e a mensagem adequada', async () => {
+      const { status, body } = await chai
         .request(app)
         .post('/login')
-        .send({ email: 'any_email@email.com', password: 'any_pass' });
-      expect(httpResponse.status).to.equal(201);
+        .send(mock.login.requests.wrongPassword);
+      expect(status).to.equal(401);
+      expect(body).to.deep.equal({
+        message: 'Incorrect email or password',
+      });
     });
   });
 });
