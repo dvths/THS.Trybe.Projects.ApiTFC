@@ -1,4 +1,4 @@
-import { ILogin } from '../../Interfaces/ILoginService';
+import { ILogin } from '../../Interfaces/Services/ILoginService';
 
 interface IMockLogin extends Partial<ILogin> {
   badEmail?: string | null;
@@ -8,7 +8,7 @@ interface IMockLogin extends Partial<ILogin> {
 // Sucesso
 const credentials: ILogin = {
   email: 'user@email.com',
-  password: 'any_pass',
+  password: 'secret_user',
 };
 
 // Quando o email não é informado
@@ -44,6 +44,13 @@ const emailNotExists: IMockLogin = {
 export const login = {
   data: credentials,
   requests: {
+    user: {
+      id: 2,
+      role: 'user',
+      username: 'User',
+      email: 'user@user.com',
+      password: '$2a$08$Y8Abi8jXvsXyqm.rmp0B.uQBA5qUz7T6Ghlg/CvVr/gLxYj5UAZVO',
+    },
     success: {
       email: credentials.email,
       password: credentials.password,
