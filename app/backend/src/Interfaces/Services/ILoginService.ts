@@ -1,11 +1,7 @@
 import { IToken, ITokenDecodedRole } from '../Auth/IToken';
-
-export interface ILogin {
-  email: string;
-  password: string;
-}
+import { IUser } from '../User/IUser';
 
 export interface ILoginService {
-  login(credentials: ILogin): Promise<IToken>;
+  login(credentials: IUser): Promise<IToken>;
   validate(authorization: string | undefined): ITokenDecodedRole
 }
