@@ -1,12 +1,12 @@
-import { ILogin } from '../../Interfaces/Services/ILoginService';
+import { IUserCredentials } from '../../Interfaces/User/IUser';
 
-interface IMockLogin extends Partial<ILogin> {
+interface IMockLogin extends Partial<IUserCredentials> {
   badEmail?: string | null;
   badPassword?: string | null;
 }
 
 // Sucesso
-const credentials: ILogin = {
+const credentials: IUserCredentials = {
   email: 'user@email.com',
   password: 'secret_user',
 };
