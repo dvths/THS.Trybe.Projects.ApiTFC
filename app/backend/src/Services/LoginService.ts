@@ -1,20 +1,19 @@
 import { compare } from 'bcryptjs';
-import { ILogin, ILoginService } from '../Interfaces/Services/ILoginService';
-import User from '../database/models/User';
+import { ILoginService } from '../Interfaces/Services/ILoginService';
 import { UnauthorizedError } from '../Errors/UnauthorizedError';
 import {
   IToken,
   ITokenDecodedRole,
 } from '../Interfaces/Auth/IToken';
 import { TokenManager } from '../Utils/TokenManeger';
+import { LoginRepository } from '../Repositories/LoginRepository/LoginRepository';
+import { IUser } from '../Interfaces/User/IUser';
 
 export class LoginService implements ILoginService {
-  constructor(private _model = User) {}
+  constructor(private loginRepository = new LoginRepository()) {}
 
-  public async login(credentials: ILogin): Promise<IToken> {
-    const user = await this._model.findOne({
-      where: { email: credentials.email },
-    });
+  public async login(credentials: IUser): Promise<IToken> {
+    const user = await this.loginRepository.getByEmail(credentials);
 
     if (user) {
       const isValidPassword = await compare(
