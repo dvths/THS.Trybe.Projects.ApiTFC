@@ -8,7 +8,7 @@ export class MatchController {
     this._matchService = matchService;
   }
 
-  public async get(_request: Request, response: Response): Promise<Response> {
+  public async getAll(_request: Request, response: Response): Promise<Response> {
     const result = await this._matchService.getAllMatches();
     return response.status(200).json(result);
   }
