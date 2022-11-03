@@ -25,3 +25,17 @@ describe('GET /matches', () => {
     });
   });
 });
+
+describe('GET /matches?inProgress=', () => {
+  describe('Quando a partida está em progresso', () => {
+    beforeEach(() => sinon.stub(Model, 'findAll').resolves(mock.inProgress as IMatches[]));
+    afterEach(() => sinon.restore());
+
+    it('Deve retornar o status 200 e a lista de partidas em progresso', async () => {
+      const { status, body } = await chai.request(app).get('/matches?inProgress');
+      expect(status).to.equal(200);
+      expect(body).to.deep.equal(mock.inProgress);
+
+    })
+  })
+})
