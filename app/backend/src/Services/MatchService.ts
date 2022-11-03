@@ -8,4 +8,8 @@ export class MatchService implements IMatchService {
   public async getAllMatches(): Promise<IMatches[]> {
     return await this.repository.getAllMatches()
   }
+
+  public async getAllMatchesInProgress(isInProgress: boolean): Promise<IMatches[]> {
+    return await this.repository.getMatchesInProgress(isInProgress);
+  }
 }
