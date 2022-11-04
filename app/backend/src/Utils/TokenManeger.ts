@@ -1,28 +1,49 @@
 import * as jwt from 'jsonwebtoken';
-import 'dotenv/config';
+import * as dotenv from 'dotenv';
+
 import { ITokenPayload, ITokenDecodedPayload } from '../Interfaces/Auth/IToken';
 import { UnauthorizedError } from '../Errors/UnauthorizedError';
 
-export class TokenManager {
-  private static _secret = process.env.JWT_SECRET || 'jwt_secret';
+dotenv.config();
 
-  public static makeToken = (payload: ITokenPayload) => {
-    const jwtConfig: jwt.SignOptions = {
-      expiresIn: '1d',
-      algorithm: 'HS256',
-    };
+const SECRET_KEY = process.env.JWT_SECRET || 'jwt_secret';
 
-    const token = jwt.sign({ data: payload }, TokenManager._secret, jwtConfig);
+export const generateToken = (payload: ITokenPayload): string => {
+  const token = jwt.sign(payload, SECRET_KEY, { algorithm: 'HS256', expiresIn: '2d' });
 
-    return token;
-  };
+  return token;
+};
 
-  public static verifyToken = (token: string) => {
-    try {
-      const result = jwt.verify(token, TokenManager._secret);
-      return result as ITokenDecodedPayload;
-    } catch (error) {
-      throw new UnauthorizedError('Token must be a valid token');
-    }
-  };
-}
+export const verifyToken = (token: string): ITokenDecodedPayload => {
+  try {
+    const result = jwt.verify(token, SECRET_KEY);
+    return result as ITokenDecodedPayload;
+  } catch (error) {
+    throw new UnauthorizedError('Token must be a valid token');
+  }
+};
+// export class TokenManager {
+//   private static _secret = process.env.JWT_SECRET || 'jwt_secret';
+
+//   public static makeToken = (payload: ITokenPayload) => {
+//     const jwtConfig: jwt.SignOptions = {
+//       expiresIn: '1d',
+//       algorithm: 'HS256',
+//     };
+
+//     const token = jwt.sign({ data: payload }, TokenManager._secret, jwtConfig);
+
+//     return token;
+//   };
+
+//   public static verifyToken = (token: string) => {
+//     // try {
+//     //   const result = jwt.verify(token, TokenManager._secret);
+//     //   return result as ITokenDecodedPayload;
+//     // } catch (error) {
+//     //   throw new UnauthorizedError('Token must be a valid token');
+//     // }
+//       const result = jwt.verify(token, TokenManager._secret);
+//       return result as ITokenDecodedPayload;
+//   };
+// }

@@ -5,14 +5,15 @@ import {
   IToken,
   ITokenDecodedRole,
 } from '../Interfaces/Auth/IToken';
-import { TokenManager } from '../Utils/TokenManeger';
+// import { TokenManager } from '../Utils/TokenManeger';
+import { generateToken, verifyToken } from '../Utils/TokenManeger';
 import { LoginRepository } from '../Repositories/LoginRepository/LoginRepository';
-import { IUser } from '../Interfaces/User/IUser';
+import { /*IUser*/ IUserCredentials } from '../Interfaces/User/IUser';
 
 export class LoginService implements ILoginService {
   constructor(private loginRepository = new LoginRepository()) {}
 
-  public async login(credentials: IUser): Promise<IToken> {
+  public async login(credentials: IUserCredentials): Promise<IToken> {
     const user = await this.loginRepository.getByEmail(credentials);
 
     if (user) {
@@ -22,17 +23,18 @@ export class LoginService implements ILoginService {
       );
       if (isValidPassword) {
         const { id, username, role } = user;
-        const token = TokenManager.makeToken({id, username, role});
+        const token = generateToken({id, username, role});
 
         return { token };
       }
     }
+
     throw new UnauthorizedError('Incorrect email or password');
   }
 
-  validate = (authorization: string | undefined): ITokenDecodedRole => {
+  public validate = (authorization: string | undefined): ITokenDecodedRole => {
     if (authorization) {
-      const { role } = TokenManager.verifyToken(authorization);
+      const { role } = verifyToken(authorization);
       return { role };
     }
 

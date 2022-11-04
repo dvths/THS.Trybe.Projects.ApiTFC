@@ -1,12 +1,12 @@
 import User from '../../database/models/User';
-import { IUser } from '../../Interfaces/User/IUser';
+import { IUser, IUserCredentials } from '../../Interfaces/User/IUser';
 
 export class LoginRepository {
   constructor(private _model = User) {}
 
-  public async getByEmail(user: IUser): Promise<IUser | null> {
+  public async getByEmail(userCredentials: IUserCredentials): Promise<IUser | null> {
     return await this._model.findOne({
-      where: { email: user.email },
+      where: { email: userCredentials.email },
     });
   }
 }
