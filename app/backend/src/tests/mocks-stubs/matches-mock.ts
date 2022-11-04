@@ -1383,4 +1383,7 @@ export const createMatchMock = {
   awayTeamGoals: 2,
 };
 
-
+export const updateMatchInfo = {
+  homeTeamGoals: 3,
+  awayTeamGoals: 1
+}
