@@ -3,6 +3,7 @@ import * as express from 'express';
 import { errorMiddleware } from './Middlewares/ErrorMiddleware';
 import { loginRouter } from './Routes/LoginRouter';
 import { matchesRouter } from './Routes/MatchRouter';
+import { teamRouter } from './Routes/TeamsRouter';
 
 class App {
   // Atributos
@@ -20,7 +21,8 @@ class App {
   // Métodos privados
   private routes(): void {
     this.app.use(loginRouter);
-    this.app.use(matchesRouter)
+    this.app.use(matchesRouter);
+    this.app.use(teamRouter);
     this.app.use(errorMiddleware);
   }
 
