@@ -13,8 +13,8 @@ export class MatchesRepository {
   public async getAllMatches(): Promise<IMatches[]> {
     const matches = await this._model.findAll({
       include: [
-        { model: Team, as: 'teamaway', attributes: ['teamname'] },
         { model: Team, as: 'teamHome', attributes: ['teamName'] },
+        { model: Team, as: 'teamAway', attributes: ['teamName'] },
       ],
     });
     return matches as IMatches[];
@@ -25,8 +25,8 @@ export class MatchesRepository {
   ): Promise<IMatches[]> {
     const matches = await this._model.findAll({
       include: [
-        { model: Team, as: 'teamaway', attributes: ['teamname'] },
         { model: Team, as: 'teamHome', attributes: ['teamName'] },
+        { model: Team, as: 'teamAway', attributes: ['teamName'] },
       ],
       where: { inProgress: isInProgress },
     });
