@@ -140,9 +140,9 @@ describe('POST /matches', () => {
 });
 
 describe('PATCH /matches/:id/finish', () => {
-  describe('Testa se uma partida é finalizada com sucesso', () => {
+  describe('Testa se uma partida é finalizada com sucesso.', () => {
     beforeEach(() => sinon.stub(Model, 'update'));
-    afterEach(() => sinon.restore);
+    afterEach(() => sinon.restore());
     it('Deve retornar o status 200 e a mensagem adequada', async () => {
       const { status, body } = await chai
       .request(app)
@@ -151,6 +151,21 @@ describe('PATCH /matches/:id/finish', () => {
       expect(body).to.deep.equal({
         message: 'Finished'
      });
+    });
+  });
+});
+
+describe('PATCH /matches/:id', () => {
+  describe('Testa se é possível atualizar uma partida com sucesso.', () => {
+    beforeEach(() => sinon.stub(Model, 'update'));
+    afterEach(() => sinon.restore());
+
+    it('Deve retornar o status 200', async () => {
+      const { status } = await chai
+      .request(app)
+      .patch('/matches/41')
+      .send(mock.updateMatchInfo);
+      expect(status).to.be.equal(200);
     });
   });
 });
