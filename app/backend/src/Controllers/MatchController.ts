@@ -19,4 +19,22 @@ export class MatchController {
     }
     return response.status(200).json(result);
   }
+
+  public async create(request: Request, response: Response): Promise<Response> {
+    const result = await this._matchService.create(request.body);
+    return response.status(201).json(result);
+  }
+
+  public async finished(request: Request, response: Response): Promise<Response> {
+    const { id } = request.params;
+    const result = await this._matchService.finished(id);
+    return response.status(200).json(result);
+  }
+
+  public async update(request: Request, response: Response): Promise<Response> {
+    const { id } = request.params;
+    await this._matchService.update(id, request.body);
+    return response.status(200).json({message: 'Updeted'});
+
+  }
 }
