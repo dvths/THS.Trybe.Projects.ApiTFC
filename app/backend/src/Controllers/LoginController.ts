@@ -15,7 +15,7 @@ export class LoginController {
 
   public async validate(request: Request, response: Response): Promise<Response> {
     const { authorization } = request.headers;
-    const result = this.loginService.validate(authorization);
+    const result = await this.loginService.validate(authorization);
 
     return response.status(200).json(result);
   }
