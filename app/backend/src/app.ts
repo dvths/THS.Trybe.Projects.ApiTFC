@@ -4,6 +4,7 @@ import { errorMiddleware } from './Middlewares/ErrorMiddleware';
 import { loginRouter } from './Routes/LoginRouter';
 import { matchesRouter } from './Routes/MatchRouter';
 import { teamRouter } from './Routes/TeamsRouter';
+import { leaderBoardRouter } from './Routes/LeaderBoardRouter';
 
 class App {
   // Atributos
@@ -23,6 +24,7 @@ class App {
     this.app.use(loginRouter);
     this.app.use(matchesRouter);
     this.app.use(teamRouter);
+    this.app.use(leaderBoardRouter);
     this.app.use(errorMiddleware);
   }
 
