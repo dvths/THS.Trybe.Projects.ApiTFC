@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { LoginService } from '../Services/LoginService';
 import { RequiredDataErrors } from '../Errors/RequiredDataErrors';
-// import { ILogin } from '../Interfaces/Services/ILoginService';
 import { UnauthorizedError } from '../Errors/UnauthorizedError';
 import { IUser } from '../Interfaces/User/IUser';
 
