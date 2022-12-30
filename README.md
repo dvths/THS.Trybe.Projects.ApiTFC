@@ -11,6 +11,8 @@ futebol.
 
 - Typescript
 - Docker
+- JWT
+- Bcript
 - MySQL
 - Sequelize ORM
 - React
@@ -26,14 +28,14 @@ futebol.
 ## Descrição
 
 Nesse projeto, pude estudar a construção de um container Docker que armazena o
-back-end da aplicação e, cuja API é consumida por um front-end executado em um
+back-end da aplicação cuja API é consumida por um front-end executado em um
 container separado.
 
-Para modelagem da interface entre a aplicação e o banco de dados, utilizei o ORM
+Para modelagem da interface entre a aplicação e o banco de dados utilizei o ORM
 Sequelize.
 
 O desenvolvimento foi focado nas regras de negócio e orientado a testes (TDD).
-Além disso a API conta com rotas protegidas que são acessadas por meio de
+Além disso, a API conta com rotas protegidas que são acessadas por meio de
 autenticação de usuário (JWT). Para realizar atualizações ou novos registros, o
 usuário recebe um token ao se logar no sistema.
 
@@ -50,12 +52,13 @@ usuário recebe um token ao se logar no sistema.
 4. Alimente o banco de dados executando o script `db.example.sql`;
 
 ---
+
 <details>
 
   <summary>
     <strong>TODO</strong>
   </summary>
 
-  - [ ] Configurar o Deploy no Railway
-  - [ ] Refatoração da estrutura para orientação ao Domínio
+- [ ] Configurar o Deploy no Railway
+- [ ] Refatoração da estrutura para orientação ao Domínio
 </details>
